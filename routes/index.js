@@ -1,9 +1,21 @@
 const express = require("express");
+const { genPassword } = require("../lib/passwordUtils");
+const pool = require("../config/pool");
 const router = express.Router();
 
 // Example route
-router.get("/", (req, res) => {
-  res.send("Welcome to the anonymous clubhouse!");
+router.get("/", messageController.allMessagesGet);
+
+router.post("/register", async (req, res) => {
+  const { uname, pw } = req.body;
+  const hash = await genPassword(pw);
+
+  await pool.query("INSERT INTO users (username, hash) VALUES ($1, $2)", [
+    uname,
+    hash,
+  ]);
+
+  res.redirect("/login");
 });
 
 module.exports = router;
