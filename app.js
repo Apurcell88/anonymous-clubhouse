@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Static assets
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 // Template engine
 app.set("view engine", "ejs");
