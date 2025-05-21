@@ -7,27 +7,30 @@ const registerUserGet = (req, res) => {
 
 const registerUserPost = async (req, res) => {
   try {
-    const { firstName, lastName, email, memberstatus, messages, pw } = req.body;
-    const { hash, salt } = await genPassword(pw);
+    const { firstName, lastName, email, memberstatus, pw } = req.body;
+    const { hash } = await genPassword(pw);
 
     const newUser = await createUser({
       firstName,
       lastName,
       email,
       hash,
-      salt,
       membershipStatus: memberstatus,
-      messages,
     });
 
-    res.redirect("/login");
+    res.redirect("/auth/login");
   } catch (err) {
     console.error("Error registering user: ", err);
     res.status(500).send("Server Error");
   }
 };
 
+const loginUserGet = (req, res) => {
+  res.render("./login", { title: "Login" });
+};
+
 module.exports = {
   registerUserGet,
   registerUserPost,
+  loginUserGet,
 };
