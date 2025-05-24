@@ -30,11 +30,11 @@ const loginUserGet = (req, res) => {
   res.render("./login", { title: "Login" });
 };
 
-const loginUserPost = (req, res) => {
+const loginUserPost = (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/auth/login",
-  });
+  })(req, res, next); // <- invokes the authenticate function
 };
 
 const authCheckGet = (req, res) => {
