@@ -8,5 +8,38 @@
 </head>
 <body>
     <h1>Login</h1>
+    <div id="status"></div>
+
+    <form action="/auth/login" method="POST" class="space-y-4">
+        <div>
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="emai" required />
+        </div>
+        <div>
+            <label for="password">Password: </label>
+            <input type="password" name="pw" id="pw" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        (async () => {
+            try {
+                const res = await fetch('/auth/check-auth');
+                const data = await res.json();
+
+                const statusDiv = document.getElementById('status');
+
+                if (data.loggedIn) {
+                    statusDiv.innerText = `You are already logged in as ${data.user.firstName} ${data.user.lastName || 'someone'}`
+                } else {
+                    statusDiv.innerText = 'You are not logged in'
+                }
+            } catch (err) {
+                console.error('Error checking auth status ', err)
+                document.getElementById('status').innerText = 'Error checking login status';
+            }
+        })
+    </script>
 </body>
 </html>

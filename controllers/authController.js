@@ -1,3 +1,4 @@
+const passport = require("passport");
 const { genPassword } = require("../lib/passwordUtils");
 const { createUser } = require("../config/database");
 
@@ -29,8 +30,25 @@ const loginUserGet = (req, res) => {
   res.render("./login", { title: "Login" });
 };
 
+const loginUserPost = (req, res) => {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/auth/login",
+  });
+};
+
+const authCheckGet = (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ loggedIn: true, user: req.user });
+  } else {
+    res.json({ loggedIn: false });
+  }
+};
+
 module.exports = {
   registerUserGet,
   registerUserPost,
   loginUserGet,
+  loginUserPost,
+  authCheckGet,
 };
