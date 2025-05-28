@@ -37,6 +37,15 @@ const loginUserPost = (req, res, next) => {
   })(req, res, next); // <- invokes the authenticate function
 };
 
+const logoutUserPost = (req, res, next) => {
+  req.logout((err) => {
+    // req.logout is provided by passport
+    if (err) return next(err);
+    req.flash("success_msg", "You have logged out");
+    res.redirect("/auth/login");
+  });
+};
+
 const authCheckGet = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ loggedIn: true, user: req.user });
@@ -50,5 +59,6 @@ module.exports = {
   registerUserPost,
   loginUserGet,
   loginUserPost,
+  logoutUserPost,
   authCheckGet,
 };

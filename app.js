@@ -5,6 +5,7 @@ const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const passport = require("passport");
 const path = require("path");
+const flash = require("connect-flash");
 
 // Custom imports
 const pool = require("./config/pool");
@@ -38,15 +39,30 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      mageAge: 1000 * 60 * 60 * 24, // 1 day
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
       secure: false, // set true if using HTTPS in production
     },
   })
 );
 
+// ------------------- FLASH SETUP -------------------
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error"); // Passport uses this for login errors
+  next();
+});
+
 // ------------------- PASSPORT SETUP -------------------
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Make the current user available in all views
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user || null; // user comes from passport
+  next();
+});
 
 // ------------------- ROUTES -------------------
 app.use(routes); // routes will use controller functions
