@@ -31,17 +31,24 @@ const loginUserGet = (req, res) => {
 };
 
 const loginUserPost = (req, res, next) => {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/auth/login",
-  })(req, res, next); // <- invokes the authenticate function
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) {
+      req.flash("error_msg", "Invalid email or password");
+      return res.redirect("/auth/login");
+    }
+
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      req.flash("success_msg", `Welcome back, ${user.first_name}`);
+      return res.redirect("/");
+    });
+  })(req, res, next);
 };
 
-const logoutUserPost = (req, res, next) => {
-  req.logout((err) => {
-    // req.logout is provided by passport
-    if (err) return next(err);
-    req.flash("success_msg", "You have logged out");
+const logoutUserPost = (req, res) => {
+  req.logout(() => {
+    req.flash("success_msg", "You have been logged out.");
     res.redirect("/auth/login");
   });
 };

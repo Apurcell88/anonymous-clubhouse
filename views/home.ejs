@@ -4,9 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/vendor/toastify/toastify.css" />
     <title><%= title %></title>
 </head>
 <body class="">
     <%- include('partials/nav') %>
+
+    <script src="/vendor/toastify/toastify.js"></script>    
+
+
+    <!-- Toast Message Logic -->
+    <script>
+      <% if (success_msg) { %>
+        Toastify({
+          text: "<%= success_msg %>",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#4ade80",
+        }).showToast();
+      <% } %>
+
+    //   <% if (error_msg) { %>
+    //     Toastify({
+    //       text: "<%= error_msg %>",
+    //       duration: 3000,
+    //       gravity: "top",
+    //       position: "right",
+    //       backgroundColor: "#f87171",
+    //     }).showToast();
+    //   <% } %>
+    </script>
 </body>
 </html>

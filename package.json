@@ -23,6 +23,7 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.16.0",
-    "tailwindcss": "^4.1.7"
+    "tailwindcss": "^4.1.7",
+    "toastify-js": "^1.12.0"
   }
 }
