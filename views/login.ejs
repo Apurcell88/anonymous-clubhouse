@@ -7,20 +7,26 @@
     <title><%= title %></title>
 </head>
 <body>
-    <h1>Login</h1>
-    <div id="status"></div>
-
-    <form action="/auth/login" method="POST" class="space-y-4">
-        <div>
-            <label for="email">Email: </label>
-            <input type="email" name="email" id="email" required />
-        </div>
-        <div>
-            <label for="password">Password: </label>
-            <input type="password" name="password" id="password" required>
-        </div>
-        <button type="submit">Login</button>
-    </form>
+    <%- include('partials/nav') %>
+    <div class="min-h-screen flex justify-center mt-12 bg-gray-50">
+        <div class="w-full max-w-md p-6 bg-white rounded shadow">
+        <h1 class="text-4xl text-center mb-6">Login</h1>
+        <form action="/auth/login" method="POST" class="flex flex-col gap-4 items-center">
+            <div class="w-full">
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email" placeholder="Email" required class="w-full border px-3 py-2 rounded">
+            </div>
+            
+            <div class="w-full">
+                <label for="pw">Password: </label>
+                <input type="password" name="password" id="pw" placeholder="Password" required class="w-full border px-3 py-2 rounded">
+            </div>
+            
+            <button type="submit" class="font-semibold text-xl">Login</button>
+        </form>
+    </div>
+    </div>
+    
 
     <script>
         (async () => {
