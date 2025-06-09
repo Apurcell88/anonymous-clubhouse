@@ -1,27 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main class="ml-4">
-        <% messages.forEach(message => { %>
-            <div>
-                <h2><%= message.title%></h2>
-                <p><%= message.body %></p>
-                <p><%= new Date(message.created_at).toLocaleString() %></p>
+<main class="mt-5">
+    <% messages.forEach(message => { %>
+        <div class="flex justify-center items-center border-b-2 ">
+        <div class="py-8 px-5 flex flex-col items-center gap-2">
+            <h2><%= message.title%></h2>
+            <p><%= message.body %></p>
+            <p><%= new Date(message.created_at).toLocaleString() %></p>
 
-                <% if (user) { %>
-                    <p>
-                        Posted by: <%= message.user.first_name %> <%= message.user.last_name %>
-                    </p>
-                <% } else { %>
-                    <p>Posted anonymously</p>
-                <% } %>
-            </div>
-        <% }) %>
-    </main>
-</body>
-</html>
+            <% if (user) { %>
+                <p>
+                    Posted by: <%= message.user.first_name %> <%= message.user.last_name %>
+                </p>
+            <% } else { %>
+                <p>Posted anonymously</p>
+            <% } %>
+        </div>
+        </div>
+    <% }) %>
+</main>

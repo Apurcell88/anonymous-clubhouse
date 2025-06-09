@@ -30,7 +30,7 @@ async function getMessages() {
     body: msg.body,
     created_at: msg.created_at,
     user: {
-      first_name: msg.firstName,
+      first_name: msg.first_name,
       last_name: msg.last_name,
     },
   }));
