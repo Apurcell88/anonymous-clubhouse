@@ -6,6 +6,7 @@ const pgSession = require("connect-pg-simple")(session);
 const passport = require("passport");
 const path = require("path");
 const flash = require("connect-flash");
+const methodOverride = require("method-override");
 
 // Custom imports
 const pool = require("./config/pool");
@@ -20,6 +21,8 @@ const app = express();
 // Body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(methodOverride("_method"));
 
 // Static assets
 app.use(express.static("public"));

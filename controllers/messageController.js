@@ -1,4 +1,8 @@
-const { getMessages, createMessage } = require("../config/database");
+const {
+  getMessages,
+  createMessage,
+  deleteMessageById,
+} = require("../config/database");
 
 const allMessagesGet = async (req, res) => {
   try {
@@ -9,6 +13,9 @@ const allMessagesGet = async (req, res) => {
       user: req.user,
       messages,
     });
+
+    console.log("Logged-in user ID:", req.user?.id);
+    console.log("Messages:", messages);
   } catch (err) {
     console.error("Error fetching messages: ", err);
   }
@@ -35,7 +42,36 @@ const createMessagePost = async (req, res) => {
   }
 };
 
+const deleteMessage = async (req, res) => {
+  try {
+    const messageId = req.params.id;
+    const userId = req.user?.id; // ? makes it optional
+
+    const messages = await getMessages(messageId);
+    const message = messages.find((msg) => msg.id === parseInt(messageId));
+
+    if (!message) {
+      req.flash("error_msg", "Message not found");
+      return res.redirect("/");
+    }
+
+    if (message.user.id !== userId) {
+      req.flash("error_msg", "You can only delete your own messages.");
+      return res.redirect("/");
+    }
+
+    await deleteMessageById(messageId);
+    req.flash("success_msg", "Message deleted.");
+    res.redirect("/");
+  } catch (err) {
+    console.error("Error deleting message: ", err);
+    req.flash("error_msg", "Failed to delete message.");
+    res.redirect("/");
+  }
+};
+
 module.exports = {
   allMessagesGet,
   createMessagePost,
+  deleteMessage,
 };

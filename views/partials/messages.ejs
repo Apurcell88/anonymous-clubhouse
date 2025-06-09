@@ -10,6 +10,14 @@
                 <p>
                     Posted by: <%= message.user.first_name %> <%= message.user.last_name %>
                 </p>
+
+                <% if (user.id === message.user.id) { %>
+                    <form action="/messages/<%= message.id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="text-red-500 hover:underline text-sm">
+                            Delete
+                        </button>
+                    </form>
+                <% } %>
             <% } else { %>
                 <p>Posted anonymously</p>
             <% } %>
