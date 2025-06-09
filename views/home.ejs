@@ -10,8 +10,15 @@
 <body class="">
     <%- include('partials/nav') %>
 
-    <script src="/vendor/toastify/toastify.js"></script>    
+    <% if (user) { %>
+      <%- include('partials/newMessage') %>
+    <% } %>
 
+    <%- include('partials/messages', { messages, user }) %>
+
+
+
+    <script src="/vendor/toastify/toastify.js"></script>    
 
     <!-- Toast Message Logic - the red squiggles work, NOT broken -->
     <script>
