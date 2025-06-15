@@ -43,5 +43,12 @@
         }).showToast();
         <% } %>
     </script>
+
+    <script>
+      function toggleMenu(id) {
+        const menu = document.getElementById(`menu-${id}`);
+        menu.classList.toggle('hidden');
+      }
+    </script>
 </body>
 </html>

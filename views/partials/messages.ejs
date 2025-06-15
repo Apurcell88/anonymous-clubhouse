@@ -10,13 +10,18 @@
                 <p>
                     Posted by: <%= message.user.first_name %> <%= message.user.last_name %>
                 </p>
-
-                <% if (user.id === message.user.id) { %>
+                <% if (user && user.id === message.user.id) { %>
+                    <span class="cursor-pointer text-xl" onclick="toggleMenu('<%= message.id %>')">
+                    ⋮
+                    </span>
+                <% } %>
+                
+                <% if (user && user.id === message.user.id) { %>
+                <div id="menu-<%= message.id %>" class="hidden absolute bg-white border rounded shadow p-2 mt-1 right-4 z-10">
                     <form action="/messages/<%= message.id %>?_method=DELETE" method="POST">
-                        <button type="submit" class="text-red-500 hover:underline text-sm">
-                            Delete
-                        </button>
+                        <button type="submit" class="text-red-500 hover:underline text-sm">Delete</button>
                     </form>
+                </div>
                 <% } %>
             <% } else { %>
                 <p>Posted anonymously</p>
