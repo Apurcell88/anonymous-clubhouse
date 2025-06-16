@@ -1,7 +1,7 @@
 <main class="mt-5">
     <% messages.forEach(message => { %>
         <div class="flex justify-center items-center border-b-2 ">
-        <div class="py-8 px-5 flex flex-col items-center gap-2">
+        <div class="py-8 px-5 flex flex-col items-center gap-2 relative">
             <h2><%= message.title%></h2>
             <p><%= message.body %></p>
             <p><%= new Date(message.created_at).toLocaleString() %></p>

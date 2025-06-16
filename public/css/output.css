@@ -191,6 +191,9 @@
   .absolute {
     position: absolute;
   }
+  .relative {
+    position: relative;
+  }
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
