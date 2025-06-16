@@ -2,6 +2,7 @@ const {
   getMessages,
   createMessage,
   deleteMessageById,
+  editMessage,
 } = require("../config/database");
 
 const allMessagesGet = async (req, res) => {
@@ -70,8 +71,38 @@ const deleteMessage = async (req, res) => {
   }
 };
 
+const editMessageByIdPost = async (req, res) => {
+  try {
+    const { title, body } = req.body;
+    const { id } = req.params;
+
+    await editMessage(id, title, body);
+
+    req.flash("success_msg", "Message updated successfully");
+    res.redirect("/");
+  } catch (err) {
+    console.error("Error updating message: ", err);
+    req.flash("error_msg", "Failed to update message");
+    res.redirect("/");
+  }
+};
+
+const editMessageByIdGet = async (req, res) => {
+  const { id } = req.params;
+  const result = await pool.query(`SELECT * FROM message WHERE id = $1`, [id]);
+
+  if (result.rows.length === 0) {
+    req.flash("error_msg", "Message not found");
+    return res.redirect("/");
+  }
+
+  res.render();
+};
+
 module.exports = {
   allMessagesGet,
   createMessagePost,
   deleteMessage,
+  editMessageByIdPost,
+  editMessageByIdGet,
 };

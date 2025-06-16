@@ -8,4 +8,6 @@ router.post("/new", messageController.createMessagePost);
 
 router.delete("/:id", messageController.deleteMessage);
 
+router.post("/edit/:id", messageController.editMessageByIdPost);
+
 module.exports = router;

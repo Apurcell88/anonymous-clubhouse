@@ -21,6 +21,26 @@
                     <form action="/messages/<%= message.id %>?_method=DELETE" method="POST">
                         <button type="submit" class="text-red-500 hover:underline text-sm">Delete</button>
                     </form>
+                    <button onclick="toggleEditForm('<%= message.id %>')" class="text-blue-500 hover:underline text-sm">
+                        Edit
+                    </button>
+                    <div id="edit-form-<%= message.id %>" class="hidden mt-2">
+                        <form action="/messages/edit/<%= message.id %>" method="POST" class="flex flex-col gap-2">
+                            <input type="text" name="title" value="<%= message.title %>" class="border p-1 w-full">
+                            <textarea name="body" class="border p-1 w-full"><%= message.body %></textarea>
+
+                            <div class="flex gap-2 mt-2">
+                                <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded text-sm">
+                                    Update
+                                </button>
+                                <button onclick="toggleEditForm('<%= message.id %>')" class="text-gray-500 underline text-sm">
+                                    Cancel
+                                </button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    
                 </div>
                 <% } %>
             <% } else { %>

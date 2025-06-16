@@ -50,9 +50,18 @@ async function deleteMessageById(id) {
   return result;
 }
 
+async function editMessage(id, title, body) {
+  await pool.query(`UPDATE messages SET title = $1, body = $2 WHERE id = $3`, [
+    title,
+    body,
+    id,
+  ]);
+}
+
 module.exports = {
   createUser,
   getMessages,
   createMessage,
   deleteMessageById,
+  editMessage,
 };
