@@ -6,17 +6,17 @@
             <p><%= message.body %></p>
             <p><%= new Date(message.created_at).toLocaleString() %></p>
 
-            <% if (user) { %>
+            <% if (currentUser) { %>
                 <p>
                     Posted by: <%= message.user.first_name %> <%= message.user.last_name %>
                 </p>
-                <% if (user && user.id === message.user.id) { %>
+                <% if (currentUser.id === message.user.id) { %>
                     <span class="cursor-pointer text-xl" onclick="toggleMenu('<%= message.id %>')">
                     ⋮
                     </span>
                 <% } %>
                 
-                <% if (user && user.id === message.user.id) { %>
+                <% if (currentUser.id === message.user.id) { %>
                 <div id="menu-<%= message.id %>" class="hidden absolute bg-white border rounded shadow p-2 mt-1 right-4 z-10">
                     <form action="/messages/<%= message.id %>?_method=DELETE" method="POST">
                         <button type="submit" class="text-red-500 hover:underline text-sm">Delete</button>
