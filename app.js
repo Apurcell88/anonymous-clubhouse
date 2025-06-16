@@ -34,6 +34,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 //------------------- SESSION SETUP -------------------
+app.set("trust proxy", 1);
+
 app.use(
   session({
     store: new pgSession({
