@@ -12,6 +12,8 @@ function toggleMenu(id) {
   const menu = document.getElementById(`menu-${id}`);
   if (menu) {
     menu.classList.toggle("hidden");
+  } else {
+    console.warn(`Menu element with ID 'menu-${id}' not found.`);
   }
 }
 
@@ -19,39 +21,33 @@ function toggleEditForm(id) {
   const form = document.getElementById(`edit-form-${id}`);
   if (form) {
     form.classList.toggle("hidden");
-    const menu = document.getElementById(`menu-${id}`);
-    if (menu && !menu.classList.contains("hidden")) {
-      menu.classList.add("hidden");
-    }
+  } else {
+    console.warn(`Edit form element with ID 'edit-form-${id}' not found.`);
   }
 }
 
+// Attach event listeners after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleMenuButtons = document.querySelectorAll(".toggle-menu-btn");
-  toggleMenuButtons.forEach((button) => {
+  // Event listener for the "⋮" (three dots) button to toggle the menu
+  document.querySelectorAll(".toggle-menu-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
       const messageId = event.currentTarget.dataset.messageId;
       toggleMenu(messageId);
     });
   });
 
-  const toggleEditFormButtons = document.querySelectorAll(
-    ".toggle-edit-form-btn"
-  );
-  toggleEditFormButtons.forEach((button) => {
+  document.querySelectorAll(".toggle-edit-form-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
       const messageId = event.currentTarget.dataset.messageId;
       toggleEditForm(messageId);
     });
   });
 
-  const cancelEditFormButtons = document.querySelectorAll(
-    ".cancel-edit-form-btn"
-  );
-  cancelEditFormButtons.forEach((button) => {
+  // Event listener for the "Cancel" button inside the edit form
+  document.querySelectorAll(".cancel-edit-form-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
       const messageId = event.currentTarget.dataset.messageId;
-      toggleEditForm(messageId); // Re-use the toggle function to hide it
+      toggleEditForm(messageId);
     });
   });
 });

@@ -18,7 +18,6 @@ const routes = require("./routes");
 const app = express();
 
 // ------------------- MIDDLEWARE -------------------
-app.use(helmet());
 
 // Body parser
 app.use(express.urlencoded({ extended: true }));
@@ -73,16 +72,6 @@ app.use((req, res, next) => {
 
 // ------------------- ROUTES -------------------
 app.use(routes); // routes will use controller functions
-
-// ------------------- ERROR HANDLERS -------------------
-app.use((req, res) => {
-  res.status(404).render("404");
-});
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
-});
 
 // ------------------- SERVER START -------------------
 const PORT = process.env.PORT || 3000;
