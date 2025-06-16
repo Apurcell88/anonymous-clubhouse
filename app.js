@@ -7,6 +7,7 @@ const passport = require("passport");
 const path = require("path");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
+const helmet = require("helmet");
 
 // Custom imports
 const pool = require("./config/pool");
@@ -17,6 +18,7 @@ const routes = require("./routes");
 const app = express();
 
 // ------------------- MIDDLEWARE -------------------
+app.use(helmet());
 
 // Body parser
 app.use(express.urlencoded({ extended: true }));
@@ -43,7 +45,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
-      secure: false, // set true if using HTTPS in production
+      secure: process.env.NODE_ENV === "production",
     },
   })
 );
@@ -69,6 +71,16 @@ app.use((req, res, next) => {
 
 // ------------------- ROUTES -------------------
 app.use(routes); // routes will use controller functions
+
+// ------------------- ERROR HANDLERS -------------------
+app.use((req, res) => {
+  res.status(404).render("404");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
 // ------------------- SERVER START -------------------
 const PORT = process.env.PORT || 3000;

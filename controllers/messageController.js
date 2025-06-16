@@ -14,9 +14,6 @@ const allMessagesGet = async (req, res) => {
       user: req.user,
       messages,
     });
-
-    console.log("Logged-in user ID:", req.user?.id);
-    console.log("Messages:", messages);
   } catch (err) {
     console.error("Error fetching messages: ", err);
   }
