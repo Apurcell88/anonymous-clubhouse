@@ -21,41 +21,8 @@
 
 
 
-    <script src="/vendor/toastify/toastify.js"></script>    
-
-    <!-- Toast Message Logic - the red squiggles work, NOT broken -->
-    <script>
-      <% if (success_msg) { %>
-        Toastify({
-          text: "<%= success_msg %>",
-          duration: 2000,
-          gravity: "top",
-          position: "right",
-          backgroundColor: "#4ade80",
-        }).showToast();
-      <% } else { %>
-        Toastify({
-          text: "<%= error_msg %>",
-          duration: 2000,
-          gravity: "top",
-          position: "right",
-          backgroundColor: "#f87171",
-        }).showToast();
-        <% } %>
-    </script>
-
-    <script>
-      function toggleMenu(id) {
-        const menu = document.getElementById(`menu-${id}`);
-        menu.classList.toggle('hidden');
-      }
-
-      function toggleEditForm(id) {
-        const form = document.getElementById(`edit-form-${id}`);
-        form.classList.toggle('hidden');
-        
-      }
-    </script>
-    
+    <script src="/vendor/toastify/toastify.js" />   
+    <script src="/js/toastLogic.js" />
+    <script src="/js/main/js" /> 
 </body>
 </html>
