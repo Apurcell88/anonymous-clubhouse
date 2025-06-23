@@ -42,20 +42,31 @@
         </form>
     </div>
 
+    <span id="success-msg-data" class="hidden"><%= success_msg || "" %></span>
+    <span id="error-msg-data"   class="hidden"><%= error_msg   || "" %></span>
+
+
+
+
+    <script src="/vendor/toastify/toastify.js"></script>
+    <script src="/js/toastLogic.js"></script>
 
 
     <script>
-        const form = document.querySelector('form');
-        const pw = document.getElementById('pw');
-        const confirmPw = document.getElementById('confirm-pw');
+        window.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector('form');
+            const pw = document.getElementById('pw');
+            const confirmPw = document.getElementById('confirm-pw');
 
-        form.addEventListener('submit', (e) => {
-            if (pw.value !== confirmPw.value) {
-                e.preventDefault();
-                alert('Passwords do not match.');
-                confirmPw.focus();
-            }
+            form.addEventListener('submit', (e) => {
+                if (pw.value !== confirmPw.value) {
+                    e.preventDefault();
+                    alert('Passwords do not match.');
+                    confirmPw.focus();
+                }
+            });
         });
     </script>
+
 </body>
 </html>

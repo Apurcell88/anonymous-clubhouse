@@ -11,7 +11,6 @@ const registerUserPost = async (req, res) => {
     const { firstName, lastName, email, memberstatus, pw, confirmPw } =
       req.body;
 
-    // Check if passwords match
     if (pw !== confirmPw) {
       req.flash("error_msg", "Passwords do not match");
       return res.redirect("/auth/register");
@@ -26,7 +25,8 @@ const registerUserPost = async (req, res) => {
       membershipStatus: memberstatus,
     });
 
-    res.redirect("/auth/login");
+    req.flash("success_msg", "Account created! You can now log in.");
+    return res.redirect("/auth/login");
   } catch (err) {
     if (err.code === "23505") {
       req.flash("error_msg", "That email is already registered.");

@@ -1,3 +1,5 @@
+console.log("Toast logic running");
+
 document.addEventListener("DOMContentLoaded", () => {
   const successMsgElement = document.getElementById("success-msg-data");
   const errorMsgElement = document.getElementById("error-msg-data");
