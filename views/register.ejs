@@ -29,6 +29,11 @@
                 <label for="pw">Password: </label>
                 <input type="password" name="pw" id="pw" placeholder="Password" required class="w-full border px-3 py-2 rounded">
             </div>
+
+            <div class="w-full">
+                <label for="confirmPw">Confirm Password: </label>
+                <input type="password" name="confirmPw" id="confirm-pw" placeholder="Confirm Password" required class="w-full border px-3 py-2 rounded">
+            </div>
             
             <button type="submit" class="font-semibold text-xl hover:cursor-pointer">Submit</button>
             <a href="/" class="inline-block text-center bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
@@ -36,5 +41,21 @@
             </a>
         </form>
     </div>
+
+
+
+    <script>
+        const form = document.querySelector('form');
+        const pw = document.getElementById('pw');
+        const confirmPw = document.getElementById('confirm-pw');
+
+        form.addEventListener('submit', (e) => {
+            if (pw.value !== confirmPw.value) {
+                e.preventDefault();
+                alert('Passwords do not match.');
+                confirmPw.focus();
+            }
+        });
+    </script>
 </body>
 </html>

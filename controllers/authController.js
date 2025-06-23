@@ -8,7 +8,14 @@ const registerUserGet = (req, res) => {
 
 const registerUserPost = async (req, res) => {
   try {
-    const { firstName, lastName, email, memberstatus, pw } = req.body;
+    const { firstName, lastName, email, memberstatus, pw, confirmPw } =
+      req.body;
+
+    // Check if passwords match
+    if (pw !== confirmPw) {
+      req.flash("error_msg", "Passwords do not match");
+      return res.redirect("/auth/register");
+    }
     const { hash } = await genPassword(pw);
 
     const newUser = await createUser({
