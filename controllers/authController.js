@@ -28,6 +28,11 @@ const registerUserPost = async (req, res) => {
 
     res.redirect("/auth/login");
   } catch (err) {
+    if (err.code === "23505") {
+      req.flash("error_msg", "That email is already registered.");
+      return res.redirect("/auth/register");
+    }
+
     console.error("Error registering user: ", err);
     res.status(500).send("Server Error");
   }
